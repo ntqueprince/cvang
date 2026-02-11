@@ -393,6 +393,22 @@ document.getElementById('csatModal').addEventListener('click', function (event) 
 
 // ENDORSEMENT Full-Page Functionality
 window.openEndorsementPage = function () {
+    // Check if password was already entered
+    if (!window._endorsementUnlocked) {
+        // Show password popup
+        const overlay = document.getElementById('endorsementPasswordOverlay');
+        if (overlay) {
+            overlay.classList.add('active');
+            setTimeout(() => {
+                const pwInput = document.getElementById('endorsementPassword');
+                if (pwInput) pwInput.focus();
+            }, 100);
+        }
+        return;
+    }
+    // Reset the flag so password is asked again next time
+    window._endorsementUnlocked = false;
+
     document.getElementById('endorsementPage').style.display = 'block';
     setTimeout(() => {
         const endorsementContainer = document.querySelector('.endorsement-container');
